@@ -1,0 +1,11 @@
+marketing_source,deal,comments
+TOP-SPO1,PPC,total commision= raw_earnings + clicks*10
+LOW-SPO1,PPC,total commision= raw_earnings + clicks*10
+LOW-SPO2,PPC,total commision= raw_earnings + clicks*10
+LOW-SPO21,FIXED 100,total commision= raw_earnings + 100
+TOP-FR,FIXED 200,total commision= raw_earnings + 200
+LOW-FR12,FIXED 100,total commision= raw_earnings + 100
+TOTO-GR1,Hybrid 100,total commision= raw_earnings + 100 + clicks*10
+TOTO-GOO,Hybrid 100,total commision= raw_earnings + 100 + clicks*10
+TOP-FR11,Hybrid 200,total commision= raw_earnings + 200 + clicks*10
+Default,FIXED 0,total commision= raw_earnings

@@ -1,0 +1,40 @@
+version: 2
+
+sources:
+  - name: bronze_layer
+    description: Bronze schema from DWH
+    database: "{{ env_var('PG_DB_NAME') }}"
+    schema: bronze
+    tables:
+
+      - name: file_load_log
+        description: >
+          File processing log
+
+      - name: raw_central_mapping
+        description: >
+          Central Mapping
+
+      - name: raw_deals
+        description: >
+          Deals
+
+      - name: raw_manual
+        description: >
+          Manual
+
+      - name: raw_routy
+        description: >
+          Routy
+
+      - name: raw_voluum
+        description: >
+          Voluum
+
+      - name: raw_voluum_mapper
+        description: >
+          Voluum Mapper
+
+      - name: raw_scrapers
+        description: >
+          Scrapers

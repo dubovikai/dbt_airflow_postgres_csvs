@@ -1,0 +1,19 @@
+# Caches
+__pycache__
+dbt_packages
+.ipynb_checkpoints
+
+# logs
+airflow/logs/*
+!airflow/logs/.gitkeep
+dbt/logs
+
+# Compiled models
+dbt/target/*
+!dbt/target/manifest.json
+
+# IDE stuff
+.vscode
+venv
+
+.user.yml

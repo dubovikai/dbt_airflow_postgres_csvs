@@ -1,0 +1,18 @@
+services:
+  db:
+    image: postgres
+    container_name: test_dwh_db_host
+    restart: unless-stopped
+    ports:
+      - ${PG_DB_PORT}:5432
+    environment:
+      POSTGRES_USER: ${PG_DB_USER}
+      POSTGRES_PASSWORD: ${PG_DB_PASSWORD}
+      POSTGRES_DB: ${PG_DB_NAME}
+    env_file: "../.env"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  postgres-data:
