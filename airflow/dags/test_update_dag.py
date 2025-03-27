@@ -72,37 +72,26 @@ with DAG(
         default_args={"retries": 1, "install_deps": True}
     )
 
-    select_general_dbt_models = BranchPythonOperator(
-        task_id="select_general_models",
+    select_dbt_models = BranchPythonOperator(
+        task_id="select_dbt_models",
         python_callable=get_task_ids_for_run,
         provide_context=True
     )
 
-    dbt_pipelines = []
-    for i in range(4):
-        dbt_pipelines.append(DbtTaskGroup(
-            prefix_group_id=False,
-            group_id=f"run_dbt_pipeline_{i}",
-            render_config=DBTConfig.render_config(
-                select=[f"path:models/bronze/pipeline_{i}"]
-            ),
-            project_config=DBTConfig.project_config(),
-            execution_config=DBTConfig.execution_config(),
-            profile_config=DBTConfig.profile_config(),
-            default_args={"retries": 1, "install_deps": True}
-        ))
-
-    select_dbt_models = BranchPythonOperator(
-        task_id="select_dbt_models",
-        python_callable=get_task_ids_for_run,
-        provide_context=True,
-        trigger_rule=TriggerRule.NONE_FAILED
+    dbt_pipeline = DbtTaskGroup(
+        prefix_group_id=False,
+        group_id="run_dbt_pipeline",
+        render_config=DBTConfig.render_config(
+            exclude=["path:models/bronze/pipeline__tech"]
+        ),
+        project_config=DBTConfig.project_config(),
+        execution_config=DBTConfig.execution_config(),
+        profile_config=DBTConfig.profile_config(),
+        default_args={"retries": 1, "install_deps": True}
     )
 
     # Define task dependencies
     (
         first_task >> raw_data_load >> run_dbt_technical_models >>
-        select_general_dbt_models >> dbt_pipelines[0] >> select_dbt_models
-        >> [dbt_pipelines[1], dbt_pipelines[2]] >> dbt_pipelines[3]
-        >> last_task
+        select_dbt_models >> dbt_pipeline >> last_task
     )
