@@ -16,4 +16,7 @@ dbt/target/*
 .vscode
 venv
 
+# External file storage
+external_file_storage
+
 .user.yml
