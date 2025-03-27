@@ -13,8 +13,10 @@ WITH union_data AS (
 )
 
 SELECT
-    DATE_TRUNC('month', date) AS month,
-    operator,
-    SUM(raw_earnings) AS raw_earnings
+    DATE_TRUNC('month', union_data.date) AS month,
+    COALESCE(op_mapping.std_operator, union_data.operator) AS operator,
+    SUM(union_data.raw_earnings) AS raw_earnings
 FROM union_data
+LEFT JOIN {{ ref('base_raw_central_mapping') }} AS op_mapping
+    ON union_data.operator = op_mapping.variants
 GROUP BY 1, 2

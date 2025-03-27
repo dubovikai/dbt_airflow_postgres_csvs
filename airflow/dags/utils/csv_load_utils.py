@@ -68,6 +68,7 @@ class CSVLoader:
             VALUES (%s, %s)
             RETURNING id
             """, [self.config.dataset.value, filename]).scalar_one()
+        print(f'File ID: {file_id}')
         return file_id
 
     def create_temp_table(self, conn: 'Connection'):
