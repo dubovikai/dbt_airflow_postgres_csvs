@@ -36,7 +36,7 @@ The simulation of sequential updates over several days with data correction can 
 DBT model development can be conducted using the console.
 
 ## DAG Structure
-The "tes_update_dag" DAG consists of ten high-level tasks (in order of execution):
+The "test_update_dag" DAG consists of ten high-level tasks (in order of execution):
 
 ![Here should be an image](https://github.com/dubovikai/dbt_airflow_postgres_csvs/blob/master/dag.png?raw=true)
 
@@ -83,7 +83,7 @@ In particular, it is unclear which fields in the source data can be considered p
 
 The DAG structure implements the technical requirements, and task groups define the boundaries of the pipelines (Pipeline 1, Pipeline 2, Pipeline 3).
 
-A more flexible approach seems to be avoiding a large number of small pipelines and processing all DBT models within a single group. With this approach, there is no need to track table dependencies manually, as the entire orchestration will be handled automatically by DBT. This eliminates the need for a separate pipeline_0, and if dependencies arise between pipeline_1 and pipeline_2, it will be less painful to manage. (See GitHub branch ["simplified"](https://github.com/dubovikai/dbt_airflow_postgres_csvs/tree/simplified))
+A more flexible approach seems to be avoiding a large number of small pipelines and processing all DBT models within a single group. With this approach, there is no need to track table dependencies manually, as the entire orchestration will be handled automatically by DBT. This eliminates the need for a separate pipeline_0, and if dependencies arise between pipeline_1 and pipeline_2, it will be less painful to manage. (See GitHub branch ["simplified"](https://github.com/dubovikai/dbt_airflow_postgres_csvs/blob/simplified/airflow/dags/test_update_dag.py))
 
 
 ## Out of Scope
