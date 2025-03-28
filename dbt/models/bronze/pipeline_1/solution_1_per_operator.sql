@@ -13,7 +13,7 @@ WITH union_data AS (
 )
 
 SELECT
-    DATE_TRUNC('month', union_data.date) AS month,
+    DATE(DATE_TRUNC('month', union_data.date)) AS month,
     COALESCE(op_mapping.std_operator, union_data.operator) AS operator,
     SUM(union_data.raw_earnings) AS raw_earnings
 FROM union_data
