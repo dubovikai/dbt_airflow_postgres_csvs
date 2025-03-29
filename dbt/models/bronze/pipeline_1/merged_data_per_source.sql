@@ -32,10 +32,20 @@ r_manual AS (
         raw_manual.signups,
         NULL::int  AS clicks
     FROM {{ ref('base_raw_manual') }} AS raw_manual
+),
+
+united_data AS (
+    SELECT * FROM m_routy_voluum
+    UNION ALL 
+    SELECT * FROM r_manual
 )
 
-SELECT * FROM m_routy_voluum
-
-UNION ALL 
-
-SELECT * FROM r_manual
+SELECT
+    date,
+    marketing_source,
+    SUM(raw_earnings) AS raw_earnings,
+    SUM(visits) AS visits,
+    SUM(signups) AS signups,
+    SUM(clicks) AS clicks
+FROM united_data
+GROUP BY 1, 2

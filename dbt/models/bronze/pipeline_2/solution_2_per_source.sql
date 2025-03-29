@@ -4,7 +4,7 @@ WITH aggregated AS (
         marketing_source,
         SUM(total_earnings) AS total_earnings,
         SUM(visits) AS visits
-    FROM {{ ref('base_raw_scrapers') }}
+    FROM {{ ref('scrappers_missing_dates') }}
     GROUP BY 1, 2
 ),
 
