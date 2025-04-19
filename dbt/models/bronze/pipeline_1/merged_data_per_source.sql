@@ -46,6 +46,6 @@ SELECT
     SUM(raw_earnings) AS raw_earnings,
     SUM(visits) AS visits,
     SUM(signups) AS signups,
-    SUM(clicks) AS clicks
+    COALESCE(SUM(clicks), 0) AS clicks
 FROM united_data
 GROUP BY 1, 2
